@@ -6,4 +6,5 @@
 ### We referenced this library for the algorithm: https://github.com/ShieldMnt/invisible-watermark
 ### We've made slight changes to use the Pillow library instead of OpenCV2, and we compare if either saving as JPEG or PNG results in a successful watermarking.
 
-#### Some extra code is included for AWS integration
+#### Some extra code is included for Vercel serverless integration(AWS lambda under the hood)
+Nothing fancy, only some code around parallel processing(used to decode JPG and PNG at once) that AWS lacks by default
