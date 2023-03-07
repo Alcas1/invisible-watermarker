@@ -20,8 +20,7 @@ class Filetype(Enum):
 
 
 def apply_watermark(
-  img_buffer: BinaryIO,
-  content_length: int,
+  img_buffer: bytes,
   file_type: Filetype = Filetype.PNG,
   jpeg_quality: int = 75,
   watermark: str = "SDV2",
@@ -34,9 +33,8 @@ def apply_watermark(
   if jpeg_quality < 0 or jpeg_quality > 100:
     raise ValueError("jpeg_quality must be between 0 and 100")
 
-  img_bytes = img_buffer.read(content_length)
   # Convert image bytes to numpy array
-  img = _bytes_to_nparray(img_bytes, resize_for_social_media)
+  img = _bytes_to_nparray(img_buffer, resize_for_social_media)
 
   # Encode watermark into image
   wm_encoder = WatermarkEncoder(watermark.encode('utf-8', 'replace'))

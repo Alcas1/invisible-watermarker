@@ -2,6 +2,7 @@ import numpy as np
 import pywt
 
 from color_conversion import color_conversion
+from chroma_subsample.subsample import subsample
 
 
 class EmbedMaxDct(object):
@@ -13,10 +14,11 @@ class EmbedMaxDct(object):
 
   def encode_rgb(self, rgb: np.ndarray) -> np.ndarray:
     yuv = color_conversion.rgb_to_yuv(rgb)
-    encoded = self.encode_yuv(yuv)
+    yuv = subsample(yuv) 
+    encoded = self._encode_yuv(yuv)
     return color_conversion.yuv_to_rgb(encoded)
 
-  def encode_yuv(self, yuv: np.ndarray) -> np.ndarray:
+  def _encode_yuv(self, yuv: np.ndarray) -> np.ndarray:
     rows, columns, _ = yuv.shape
 
     for channel in range(2):
